@@ -1,0 +1,194 @@
+{
+  "project_info": {
+    "project_number": "803577935837",
+    "firebase_url": "https://nitk-on-schedule.firebaseio.com",
+    "project_id": "nitk-on-schedule"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803577935837:android:f7676a92653df459",
+        "android_client_info": {
+          "package_name": "com.apptronix.nitkonschedule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803577935837-38hghqgg7b3oariprta67coih4l85vao.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "803577935837-pe1h264vj6a6sthh3tg3a7t5k1airri9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apptronix.nitkonschedule",
+            "certificate_hash": "4cb5d2bebe3e14bff13843eb865d9124e53706f0"
+          }
+        },
+        {
+          "client_id": "803577935837-vpfc9acmb7i274qi9u8jotg1qcddjqrb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsR5EXL_WfYyH2bB-ukQIv1DHNguwbLKE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803577935837-38hghqgg7b3oariprta67coih4l85vao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803577935837:android:cdd38565e458f592",
+        "android_client_info": {
+          "package_name": "com.apptronix.nitkonschedule.student"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803577935837-jk6jedv30uhkaqddr70avhsh0hc2riks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apptronix.nitkonschedule.student",
+            "certificate_hash": "403495dc6d8ce79f0a3971f04a5add0b461e778a"
+          }
+        },
+        {
+          "client_id": "803577935837-q910np0s9v81d4l2guqmlu1np08cc4fv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apptronix.nitkonschedule.student",
+            "certificate_hash": "493b8fbda7afad2fe74621fda2559e62e3b2551f"
+          }
+        },
+        {
+          "client_id": "803577935837-jdass4legf96mhq13ea7tfv3tgco8frq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apptronix.nitkonschedule.student",
+            "certificate_hash": "4cb5d2bebe3e14bff13843eb865d9124e53706f0"
+          }
+        },
+        {
+          "client_id": "803577935837-38hghqgg7b3oariprta67coih4l85vao.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "803577935837-vpfc9acmb7i274qi9u8jotg1qcddjqrb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsR5EXL_WfYyH2bB-ukQIv1DHNguwbLKE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803577935837-38hghqgg7b3oariprta67coih4l85vao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803577935837:android:97e6e2d471d15fd2",
+        "android_client_info": {
+          "package_name": "com.apptronix.nitkonschedule.teacher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803577935837-sn5n53d5j58jm6pig7lj6ptca3t3d6ru.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apptronix.nitkonschedule.teacher",
+            "certificate_hash": "493b8fbda7afad2fe74621fda2559e62e3b2551f"
+          }
+        },
+        {
+          "client_id": "803577935837-aa2n3evd9392956v0rf9mhg3orkofivh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apptronix.nitkonschedule.teacher",
+            "certificate_hash": "403495dc6d8ce79f0a3971f04a5add0b461e778a"
+          }
+        },
+        {
+          "client_id": "803577935837-7m89gvjk93qrp692uokavq9retbsdt8m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apptronix.nitkonschedule.teacher",
+            "certificate_hash": "8e9daac1f00e25bdc5d2809dc31f3097850ea214"
+          }
+        },
+        {
+          "client_id": "803577935837-97r12k0pppu5mei918d7j467blu94s26.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apptronix.nitkonschedule.teacher",
+            "certificate_hash": "4cb5d2bebe3e14bff13843eb865d9124e53706f0"
+          }
+        },
+        {
+          "client_id": "803577935837-38hghqgg7b3oariprta67coih4l85vao.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "803577935837-vpfc9acmb7i274qi9u8jotg1qcddjqrb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsR5EXL_WfYyH2bB-ukQIv1DHNguwbLKE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803577935837-38hghqgg7b3oariprta67coih4l85vao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

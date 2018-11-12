@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:id="@+id/widgetItemContainer">
+
+    <TextView
+        android:id="@+id/widgetTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="#000000"
+        tools:text="8:00" />
+
+    <TextView
+        android:id="@+id/widgetCourse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10sp"
+        style="@style/CourseTextStyle"
+        android:layout_weight="1"
+        tools:text="EE258"
+        android:textColor="#000000"
+        android:layout_marginRight="10sp" />
+
+    <TextView
+        android:id="@+id/widgetAttendance"
+        style="@style/AttendanceTextStyle"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/percent_change_pill_green"
+        android:paddingLeft="@dimen/text_view_padding"
+        android:paddingRight="@dimen/text_view_padding"
+        android:paddingEnd="@dimen/text_view_padding"
+        android:paddingStart="@dimen/text_view_padding"
+        android:textAlignment="center"
+        tools:text="100%" />
+
+</LinearLayout>
