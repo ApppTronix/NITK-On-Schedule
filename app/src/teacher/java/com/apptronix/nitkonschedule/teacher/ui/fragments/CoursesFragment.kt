@@ -1,4 +1,4 @@
-package com.apptronix.nitkonschedule.teacher.ui
+package com.apptronix.nitkonschedule.teacher.ui.fragments
 
 import android.content.Context
 import android.content.Intent
@@ -17,6 +17,8 @@ import android.widget.ListView
 import com.apptronix.nitkonschedule.R
 import com.apptronix.nitkonschedule.teacher.adapter.CoursesAdapter
 import com.apptronix.nitkonschedule.teacher.data.DBContract
+import com.apptronix.nitkonschedule.teacher.ui.NewCourseActivity
+import com.apptronix.nitkonschedule.teacher.ui.ResourcesActivity
 import kotlinx.android.synthetic.teacher.fragment_courses.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

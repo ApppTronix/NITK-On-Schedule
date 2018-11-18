@@ -3,10 +3,6 @@ package com.apptronix.nitkonschedule.student.ui;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +11,11 @@ import android.widget.ListView;
 import com.apptronix.nitkonschedule.R;
 import com.apptronix.nitkonschedule.student.adapter.TestsAdapter;
 import com.apptronix.nitkonschedule.student.data.DBContract;
+
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 public class TestsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 

@@ -1,4 +1,4 @@
-package com.apptronix.nitkonschedule.teacher.ui
+package com.apptronix.nitkonschedule.teacher.ui.fragments
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.loader.app.LoaderManager
+import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
@@ -13,23 +14,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
-import androidx.loader.content.CursorLoader
 import com.apptronix.nitkonschedule.R
-import com.apptronix.nitkonschedule.teacher.adapter.AssignmentsAdapter
+import com.apptronix.nitkonschedule.teacher.adapter.TestsAdapter
 import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.apptronix.nitkonschedule.teacher.service.InstantUploadService
-import kotlinx.android.synthetic.teacher.fragment_assignments.view.*
+import com.apptronix.nitkonschedule.teacher.ui.EditUploadTAActivity
+import kotlinx.android.synthetic.teacher.fragment_tests.view.*
 import timber.log.Timber
 
-class AssignmentsFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
-
+class TestsFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     override fun onLoaderReset(loader: Loader<Cursor>) {
-        assgnAdapter.swapCursor(null)
+        testsAdapter.swapCursor(null)
     }
 
+
     private var mListener: OnFragmentInteractionListener? = null
-    internal lateinit var assgnAdapter: AssignmentsAdapter
-    internal lateinit var cursor: Cursor
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,34 +39,40 @@ class AssignmentsFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         }
     }
 
+    lateinit var  cursor: Cursor
+    lateinit var testsAdapter: TestsAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val rootView = inflater!!.inflate(R.layout.fragment_assignments, container, false)
-        val assgnList = rootView.findViewById<View>(R.id.assgnListView) as ListView
-        assgnAdapter = AssignmentsAdapter(activity, null)
-        assgnList.adapter = assgnAdapter
-        assgnList.setEmptyView(rootView.findViewById(R.id.empty))
+        // Inflate the layout for this fragment\
+
+        val rootView = inflater!!.inflate(R.layout.fragment_tests, container, false)
+        val testsList = rootView.findViewById<View>(R.id.testsListView) as ListView
+
+        testsAdapter=TestsAdapter(activity,null)
+        testsList.adapter = testsAdapter
         loaderManager.initLoader(0, null, this)
-        assgnList.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            cursor.moveToPosition(position)
-            val builder = AlertDialog.Builder(activity!!)
+
+        testsList.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            cursor!!.moveToPosition(position)
+            val builder = AlertDialog.Builder(this!!.activity!!)
             builder.setTitle(R.string.pick_action)
                     .setItems(R.array.actions_array) { dialog, which ->
                         Timber.i("touch pos %d", which)
                         when (which) {
                             0 -> {//edit
                                 val intent = Intent(activity, EditUploadTAActivity::class.java)
-                                intent.putExtra("title", "Edit Assignment")
-                                intent.putExtra("id", cursor.getInt(cursor.getColumnIndex(DBContract.AssignmentsEntry._ID)))
+                                intent.putExtra("title", "Edit Test")
+                                intent.putExtra("id", cursor!!.getInt(cursor!!.getColumnIndex(DBContract.TestsEntry._ID)))
                                 startActivity(intent)
                             }
                             1 -> {//grade
                             }
                             2 -> {//delete
+
                                 val intent = Intent(activity, InstantUploadService::class.java)
                                 val bundle = Bundle()
-                                bundle.putString("content", "Delete Assignment")
-                                bundle.putInt("id", cursor.getInt(cursor.getColumnIndex(DBContract.AssignmentsEntry._ID)))
+                                bundle.putString("content", "Delete Test")
+                                bundle.putInt("id", cursor.getInt(cursor.getColumnIndex(DBContract.TestsEntry._ID)))
                                 intent.putExtra("bundle",bundle)
                                 activity!!.startService(intent)
 
@@ -76,10 +82,9 @@ class AssignmentsFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             val dialog = builder.create()
             dialog.show()
         }
-
-        rootView.uploadAssignment.setOnClickListener {
+        rootView.uploadTest.setOnClickListener {
             val intent = Intent(activity, EditUploadTAActivity::class.java)
-            intent.putExtra("title", "Upload Assignment")
+            intent.putExtra("title", "Upload Test")
             startActivity(intent)
         }
 
@@ -91,7 +96,7 @@ class AssignmentsFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             mListener = context
-            mListener!!.onFragmentInteraction("Assignments ")
+            mListener!!.onFragmentInteraction("Tests ")
         } else {
             throw RuntimeException(context!!.toString() + " must implement OnFragmentInteractionListener")
         }
@@ -105,17 +110,16 @@ class AssignmentsFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
 
         return CursorLoader(activity!!,
-                DBContract.AssignmentsEntry.CONTENT_URI, null, null, null, null)
+                DBContract.TestsEntry.CONTENT_URI, null, null, null, null)
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor) {
         cursor = data
-        assgnAdapter.swapCursor(data)
+        testsAdapter.swapCursor(data)
     }
 
-
+    // TODO: Update argument type and name
     interface OnFragmentInteractionListener {
-
         fun onFragmentInteraction(token: String)
     }
 }// Required empty public constructor

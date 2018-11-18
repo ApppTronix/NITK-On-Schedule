@@ -5,11 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import androidx.appcompat.app.AlertDialog;
 import android.text.InputType;
 import android.view.Gravity;
@@ -32,10 +27,15 @@ import com.apptronix.nitkonschedule.student.adapter.TestsAdapter;
 import com.apptronix.nitkonschedule.student.data.DBContract;
 import com.apptronix.nitkonschedule.student.rest.ApiInterface;
 import com.apptronix.nitkonschedule.student.service.UploadService;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.List;
 
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 import retrofit2.Call;
 import retrofit2.Response;
 import timber.log.Timber;

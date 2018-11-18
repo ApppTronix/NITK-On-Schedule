@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +13,11 @@ import com.apptronix.nitkonschedule.R;
 import com.apptronix.nitkonschedule.Utils;
 import com.apptronix.nitkonschedule.student.adapter.ScheduleAdapter;
 import com.apptronix.nitkonschedule.student.data.DBContract;
+
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
 import timber.log.Timber;
@@ -23,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-public class ScheduleFragment extends Fragment implements androidx.core.app.LoaderManager.LoaderCallbacks<Cursor> {
+public class ScheduleFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
         private OnFragmentInteractionListener mListener;
 
         int selectedDate,startDate,endDate,todayDate;
@@ -156,7 +158,7 @@ public class ScheduleFragment extends Fragment implements androidx.core.app.Load
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
                 Timber.i("loader created %d", selectedDate);
-                return new androidx.core.content.CursorLoader(getActivity(),
+                return new CursorLoader(getActivity(),
                         DBContract.TimeTableEntry.buildDateTableUri(selectedDate), null, null, null, null);
         }
 

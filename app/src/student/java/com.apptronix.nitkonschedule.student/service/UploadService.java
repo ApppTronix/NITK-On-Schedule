@@ -8,8 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import com.apptronix.nitkonschedule.student.service.DBSyncTask;
-import com.firebase.jobdispatcher.JobParameters;
-import com.firebase.jobdispatcher.JobService;
 
 import timber.log.Timber;
 
@@ -30,6 +28,6 @@ public class UploadService  extends IntentService{
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        UploadTask.sendData(getApplicationContext(),intent.getBundleExtra("bundle"));
+        UploadTask.sendData(this,intent.getBundleExtra("bundle"));
     }
 }

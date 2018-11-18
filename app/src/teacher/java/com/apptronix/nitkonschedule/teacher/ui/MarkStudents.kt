@@ -1,5 +1,8 @@
 package com.apptronix.nitkonschedule.teacher.ui
 
+import android.app.Activity
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
@@ -17,15 +20,22 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.apptronix.nitkonschedule.FileUtils
 import com.apptronix.nitkonschedule.R
 import com.apptronix.nitkonschedule.model.Schedule
+import com.apptronix.nitkonschedule.model.User
 import com.apptronix.nitkonschedule.teacher.adapter.MarkAttendanceAdapter
 import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.apptronix.nitkonschedule.teacher.service.InstantUploadService
 import kotlinx.android.synthetic.teacher.activity_mark_students.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.find
 import org.jetbrains.anko.forEachChild
+import org.json.JSONObject
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
@@ -65,7 +75,6 @@ class MarkStudents : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> 
                 course = data.getString(data.getColumnIndex(DBContract.TimeTableEntry.COLUMN_COURSE))
                 schedule=Schedule(dateInt,course,timeInt,null,null)
 
-                data.close()
                 supportLoaderManager.initLoader(2,null,this)
                 Timber.i("loading 2")
 
@@ -74,9 +83,11 @@ class MarkStudents : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> 
             }
         } else {
             if(data!!.moveToFirst()){
+                var ids = enrolledIDs.dropLast(1).split(";")
                 enrolledIDs = data.getString(data.getColumnIndex(DBContract.CourseEntry.COLUMN_COURSE_ENROLLED_IDS))
-                Timber.i("attd %s %s",enrolledIDs.dropLast(1).split(";")[0],enrolledIDs)
-                markAttendanceAdapter=MarkAttendanceAdapter(this, enrolledIDs.dropLast(1).split(";").toTypedArray(),false, this)
+
+                Timber.i("attd %s %s",ids[0],enrolledIDs)
+                markAttendanceAdapter=MarkAttendanceAdapter(this, ids.toTypedArray(),false, this)
                 markAttendanceList.layoutManager= LinearLayoutManager(this, RecyclerView.VERTICAL, false)
                 markAttendanceList.adapter=markAttendanceAdapter
                 markAttendanceAdapter.notifyDataSetChanged()
@@ -127,6 +138,8 @@ class MarkStudents : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> 
             }
         }
     }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mark_students)
@@ -143,8 +156,8 @@ class MarkStudents : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> 
         id = intent.getIntExtra("id", 0)
         Timber.i("%d is id",id)
 
-        supportLoaderManager.initLoader(1, null, this)
 
+        supportLoaderManager.initLoader(1, null, this)
     }
 
     fun upload(view: View){
@@ -181,7 +194,63 @@ class MarkStudents : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> 
         ).apply {
             // Save a file: file_paths for use with ACTION_VIEW intents
             mCurrentPhotoPath = absolutePath
+
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int,
+                                  data: Intent?) {
+        if (resultCode == Activity.RESULT_OK
+                && requestCode == REQUEST_TAKE_PHOTO) {
+            Timber.i("Camera intent returned, starting upload")
+            upload(mCurrentPhotoPath)
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    fun upload(path: String) {
+        val bundle = Bundle()
+        bundle.putString("content","Upload Attendance Image")
+        bundle.putString("file_paths",path)
+        bundle.putString("course",course)
+        val serviceIntent = Intent(this,InstantUploadService::class.java)
+        serviceIntent.putExtra("bundle",bundle)
+        startService(serviceIntent)
+    }
+
+    private var user: User? = null
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: MessageEvent) {
+
+        Timber.i(event.message)
+
+        when (event.message) {
+            "FaceRecognitionComplete" -> {
+
+                Toast.makeText(this, event.jsonObject.toString(), Toast.LENGTH_LONG).show()
+
+                var singleStudent:JSONObject
+                var defs:BooleanArray
+
+            }
+            else -> {
+
+                Toast.makeText(this, event.message, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    class MessageEvent(var message: String, var jsonObject: JSONObject)
+
+    public override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    public override fun onStop() {
+        EventBus.getDefault().unregister(this)
+        super.onStop()
+    }
 }

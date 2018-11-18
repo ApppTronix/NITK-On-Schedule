@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.apptronix.nitkonschedule.teacher.ui.TestsFragment">
+    tools:context="com.apptronix.nitkonschedule.teacher.ui.fragments.TestsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <ListView

@@ -1,8 +1,5 @@
 package com.apptronix.nitkonschedule.student.service;
 
-import com.firebase.jobdispatcher.FirebaseJobDispatcher;
-import com.firebase.jobdispatcher.GooglePlayDriver;
-import com.firebase.jobdispatcher.Job;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -25,13 +22,7 @@ public class MyFcmListenerService extends FirebaseMessagingService {
         if(data.get("action").equals("syncDB")){
 
             Timber.i("fcm sync started");
-            FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
-            Job myJob = dispatcher.newJobBuilder()
-                    .setService(DbSyncService.class) // the JobService that will be called
-                    .setTag("my-unique-tag")        // uniquely identifies the job
-                    .build();
-
-            dispatcher.mustSchedule(myJob);
+            // TODO sync db
         }
     }
 

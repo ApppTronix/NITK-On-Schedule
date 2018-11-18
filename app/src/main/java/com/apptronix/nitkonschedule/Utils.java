@@ -86,7 +86,7 @@ public class Utils {
 
         Calendar c = Calendar.getInstance();
         c.set(year,month,day);
-        c.add(Calendar.DAY_OF_MONTH,position-2);
+        c.add(Calendar.DAY_OF_MONTH,position-3);
 
         year = c.get(Calendar.YEAR);
         month = c.get(Calendar.MONTH);
@@ -111,4 +111,6 @@ public class Utils {
         return dayFormat.format(c.getTime());
 
     }
+
+
 }

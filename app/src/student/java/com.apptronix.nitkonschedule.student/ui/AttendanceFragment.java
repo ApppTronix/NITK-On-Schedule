@@ -2,12 +2,9 @@ package com.apptronix.nitkonschedule.student.ui;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +13,19 @@ import android.widget.ListView;
 import com.apptronix.nitkonschedule.R;
 import com.apptronix.nitkonschedule.student.adapter.CourseWithAttendanceAdapter;
 import com.apptronix.nitkonschedule.student.data.DBContract;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class AttendanceFragment extends Fragment  implements LoaderManager.LoaderCallbacks<Cursor> {
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+
+
+public class AttendanceFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private AttendanceFragment.OnFragmentInteractionListener mListener;
     CourseWithAttendanceAdapter coursesAdapter;
+    FloatingActionButton uploadFace;
 
     public AttendanceFragment() {
         // Required empty public constructor
@@ -34,6 +36,13 @@ public class AttendanceFragment extends Fragment  implements LoaderManager.Loade
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_coursewattendance, container, false);
         ListView courseList = (ListView)rootView.findViewById(R.id.coursewattdListView);
+        uploadFace = rootView.findViewById(R.id.uploadFace);
+        uploadFace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(),AddFaceActivity.class));
+            }
+        });
 
         courseList.setEmptyView(rootView.findViewById(R.id.empty));
         coursesAdapter = new CourseWithAttendanceAdapter(getActivity(),null);

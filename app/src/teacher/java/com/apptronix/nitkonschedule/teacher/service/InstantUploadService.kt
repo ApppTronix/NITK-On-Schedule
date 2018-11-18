@@ -13,6 +13,7 @@ import com.apptronix.nitkonschedule.rest.ProgressRequestBody
 import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.apptronix.nitkonschedule.teacher.rest.ApiInterface
 import com.apptronix.nitkonschedule.teacher.ui.MainActivity
+import com.apptronix.nitkonschedule.teacher.ui.MarkStudents
 import okhttp3.MultipartBody
 import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
@@ -87,6 +88,48 @@ class InstantUploadService : IntentService("InstantUploadService"), ProgressRequ
                             mNotifyManager.notify(id, mBuilder.build())
                             Timber.i("response 200 file")
                             EventBus.getDefault().post(MainActivity.MessageEvent("FileUploadSuccess"))
+                        } else if (response.code() == 401) {
+
+                        }
+                    }
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    Timber.i(e.message)
+                }
+
+            } else if (content == "Upload Attendance Image") {
+
+                course=bundle.getString("course")
+                val path = bundle.getString("file_paths")
+                val file = File(path)
+                val fileBody = ProgressRequestBody(file, this)
+
+                val filePart = MultipartBody.Part.createFormData("file", file.name, fileBody)
+
+                mNotifyManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                mBuilder= Notification.Builder(this)
+                mBuilder.setContentTitle("Attendance Image Upload")
+                        .setContentText("Upload in progress")
+                        .setSmallIcon(R.drawable.ic_folder)
+                mNotifyManager.notify(id,mBuilder.build())
+
+                val apiService = ApiClient.getClient().create(ApiInterface::class.java)
+                val user = User(this);
+                val callTT = apiService.uploadAttendanceImage(user.accessToken, filePart,file.name,course)
+
+                try {
+                    val response = callTT.execute()
+
+                    Timber.i("response msg %s",response.message())
+                    if (response.isSuccessful) {
+                        if (response.code() == 200) {
+
+                            mBuilder.setContentText("Face Recognition complete")
+                                    .setProgress(0, 0, false)
+                            mNotifyManager.notify(id, mBuilder.build())
+
+                            EventBus.getDefault().post(MarkStudents.MessageEvent("FaceRecognitionComplete",response.body()!!))
                         } else if (response.code() == 401) {
 
                         }

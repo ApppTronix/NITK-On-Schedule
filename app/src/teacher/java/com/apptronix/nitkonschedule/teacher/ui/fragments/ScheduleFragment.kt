@@ -1,4 +1,4 @@
-package com.apptronix.nitkonschedule.teacher.ui
+package com.apptronix.nitkonschedule.teacher.ui.fragments
 
 import android.content.Context
 import android.content.Intent
@@ -19,6 +19,8 @@ import com.apptronix.nitkonschedule.Utils
 import com.apptronix.nitkonschedule.teacher.adapter.ScheduleAdapter
 import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.apptronix.nitkonschedule.teacher.service.InstantUploadService
+import com.apptronix.nitkonschedule.teacher.ui.EditUploadSchedule
+import com.apptronix.nitkonschedule.teacher.ui.MarkStudents
 import devs.mulham.horizontalcalendar.HorizontalCalendar
 import devs.mulham.horizontalcalendar.HorizontalCalendarListener
 import kotlinx.android.synthetic.teacher.fragment_schedule.view.*
@@ -197,7 +199,7 @@ class ScheduleFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
 
-        fun onMessageEvent(event: ScheduleFragment.MessageEvent) {
+        fun onMessageEvent(event: MessageEvent) {
 
         Timber.i(event.message)
         when (event.message) {

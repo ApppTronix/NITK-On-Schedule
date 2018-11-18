@@ -6,13 +6,12 @@ import android.content.ComponentName
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.util.EventLog
 import com.apptronix.nitkonschedule.model.*
 import com.apptronix.nitkonschedule.rest.ApiClient
 import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.apptronix.nitkonschedule.teacher.rest.ApiInterface
 import com.apptronix.nitkonschedule.teacher.ui.MainActivity
-import com.apptronix.nitkonschedule.teacher.ui.ScheduleFragment
+import com.apptronix.nitkonschedule.teacher.ui.fragments.ScheduleFragment
 import com.apptronix.nitkonschedule.teacher.widget.TimeTableCollectionWidget
 import com.google.firebase.messaging.FirebaseMessaging
 import okhttp3.MediaType

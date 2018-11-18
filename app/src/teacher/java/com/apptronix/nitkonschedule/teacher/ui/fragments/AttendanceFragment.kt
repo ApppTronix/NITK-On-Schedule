@@ -1,4 +1,4 @@
-package com.apptronix.nitkonschedule.teacher.ui
+package com.apptronix.nitkonschedule.teacher.ui.fragments
 
 import android.content.Context
 import android.content.Intent
@@ -18,6 +18,8 @@ import com.apptronix.nitkonschedule.R
 import com.apptronix.nitkonschedule.Utils
 import com.apptronix.nitkonschedule.teacher.adapter.AttendanceAdapter
 import com.apptronix.nitkonschedule.teacher.data.DBContract
+import com.apptronix.nitkonschedule.teacher.ui.MarkStudents
+import com.apptronix.nitkonschedule.teacher.ui.ViewMarkedStudentActivity
 import timber.log.Timber
 
 class AttendanceFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
@@ -46,7 +48,7 @@ class AttendanceFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         loaderManager.initLoader(0, null, this)
         attdList.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             cursor.moveToPosition(position)
-            val intent = Intent(activity, MarkStudents::class.java)
+            val intent = Intent(activity, ViewMarkedStudentActivity::class.java)
             intent.putExtra("id", cursor.getInt(cursor.getColumnIndex(DBContract.TimeTableEntry._ID)))
             intent.putExtra("course",cursor.getString(cursor.getColumnIndex(DBContract.TimeTableEntry.COLUMN_COURSE)))
             startActivity(intent)

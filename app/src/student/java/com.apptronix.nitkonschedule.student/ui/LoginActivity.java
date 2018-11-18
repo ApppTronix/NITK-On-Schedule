@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apptronix.nitkonschedule.R;
@@ -25,6 +28,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import androidx.appcompat.widget.AppCompatButton;
 import timber.log.Timber;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,View.OnClickListener {
@@ -57,10 +61,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
-    EditText _emailText;
-    EditText _passwordText;
     Button loginButton;
     SignInButton signInButton;
+
+
+    TextView textDummyHintUsername;
+    TextView textDummyHintPassword;
+    EditText editUsername;
+    AppCompatButton lgnBtn;
+    EditText editPassword;
 
     int RC_SIGN_IN=1;
     ProgressDialog progressDialog;
@@ -99,8 +108,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_login);
 
 
-        _emailText = findViewById(R.id.input_email);
-        _passwordText = findViewById(R.id.input_password);
+
+        textDummyHintUsername = findViewById(R.id.text_dummy_hint_username);
+        textDummyHintPassword = findViewById(R.id.text_dummy_hint_password);
+        editUsername = findViewById(R.id.input_email);
+        editPassword = findViewById(R.id.input_password);
+
         loginButton = findViewById(R.id.btn_login);
         signInButton = findViewById(R.id.sign_in_button);
         User user = new User(this);
@@ -116,12 +129,58 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
         loginButton.setOnClickListener(this);
         signInButton.setOnClickListener(this);
+
+        editUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (hasFocus) {
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            // Show white background behind floating label
+                            textDummyHintUsername.setVisibility(View.VISIBLE);
+                        }
+                    }, 100);
+                } else {
+                    // Required to show/hide white background behind floating label during focus change
+                    if (editUsername.getText().length() > 0)
+                        textDummyHintUsername.setVisibility(View.VISIBLE);
+                    else
+                        textDummyHintUsername.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        // Password
+        editPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (hasFocus) {
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            // Show white background behind floating label
+                            textDummyHintPassword.setVisibility(View.VISIBLE);
+                        }
+                    }, 100);
+                } else {
+                    // Required to show/hide white background behind floating label during focus change
+                    if (editPassword.getText().length() > 0)
+                        textDummyHintPassword.setVisibility(View.VISIBLE);
+                    else
+                        textDummyHintPassword.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
     }
 
     public void login() {
@@ -134,8 +193,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
         Timber.i("Login clcikd ");
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        String email = editUsername.getText().toString();
+        String password = editPassword.getText().toString();
 
         Intent intent = new Intent(this,AuthService.class);
         intent.putExtra("email",email);
@@ -165,21 +224,21 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     public boolean validate() {
         boolean valid = true;
 
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        String email = editUsername.getText().toString();
+        String password = editPassword.getText().toString();
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError(getResources().getString(R.string.invalid_email));
+            editUsername.setError(getResources().getString(R.string.invalid_email));
             valid = false;
         } else {
-            _emailText.setError(null);
+            editUsername.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError(getResources().getString(R.string.password_error));
+            editPassword.setError(getResources().getString(R.string.password_error));
             valid = false;
         } else {
-            _passwordText.setError(null);
+            editPassword.setError(null);
         }
 
         return valid;

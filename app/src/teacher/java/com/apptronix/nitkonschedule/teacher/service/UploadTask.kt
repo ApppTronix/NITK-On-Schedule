@@ -7,7 +7,7 @@ import com.apptronix.nitkonschedule.model.*
 import com.apptronix.nitkonschedule.rest.ApiClient
 import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.apptronix.nitkonschedule.teacher.rest.ApiInterface
-import com.apptronix.nitkonschedule.teacher.ui.CoursesFragment
+import com.apptronix.nitkonschedule.teacher.ui.fragments.CoursesFragment
 import com.apptronix.nitkonschedule.teacher.ui.MainActivity
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
@@ -172,7 +172,7 @@ object UploadTask {
 
     private fun uploadSchedule(bundle: Bundle) {
 
-        Timber.i("schedule")
+        Timber.i("uploading new schedule")
         val schedule = bundle.getSerializable("parcel") as Schedule
         val apiService = ApiClient.getClient().create(ApiInterface::class.java)
         val callTT = apiService.uploadSchedule(user!!.accessToken, schedule)
@@ -180,11 +180,14 @@ object UploadTask {
         try {
             val response = callTT.execute()
             if (response.isSuccessful) {
+                Timber.i("upload new schedule response is %s",response.body()!!.results)
                 if (response.code() == 200) {
                     EventBus.getDefault().post(MainActivity.MessageEvent(response.message()))
                 } else if (response.code() == 401) {
 
                 }
+            } else {
+                Timber.i("upload reponse unsuccesful")
             }
 
         } catch (e: IOException) {
@@ -193,6 +196,7 @@ object UploadTask {
         }
 
     }
+
 
     private fun deleteTest(bundle: Bundle) {
         Timber.i("test")

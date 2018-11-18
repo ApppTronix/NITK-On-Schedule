@@ -3,9 +3,6 @@ package com.apptronix.nitkonschedule.student.ui;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +11,11 @@ import android.widget.ListView;
 import com.apptronix.nitkonschedule.R;
 import com.apptronix.nitkonschedule.student.adapter.AssignmentsAdapter;
 import com.apptronix.nitkonschedule.student.data.DBContract;
+
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 public class AssignmentsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -68,7 +70,7 @@ public class AssignmentsFragment extends Fragment implements LoaderManager.Loade
     @Override
     public Loader onCreateLoader(int id, Bundle args) {
 
-        return new androidx.core.content.CursorLoader(getActivity(),
+        return new CursorLoader(getActivity(),
                 DBContract.AssignmentsEntry.CONTENT_URI,
                 null,
                 null,

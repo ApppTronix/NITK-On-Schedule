@@ -192,7 +192,6 @@ class EditUploadSchedule : AppCompatActivity() {
             val intent = Intent(this,InstantUploadService::class.java)
             intent.putExtra("bundle",bundle)
             startService(intent)
-            finish()
 
         } else {
             Timber.i("detail invalid %s %s %s",timeText,courseText,dateText)
@@ -206,7 +205,7 @@ class EditUploadSchedule : AppCompatActivity() {
         var returnVal = true
 
         if (details[1] == null || "" == details[1]) {
-            s_input_description.error = getString(R.string.timeError)
+            s_input_time.error = getString(R.string.timeError)
             returnVal = false
         }
         if (details[2] == null || "" == details[2]) {

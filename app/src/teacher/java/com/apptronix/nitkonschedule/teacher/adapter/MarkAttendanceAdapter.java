@@ -9,9 +9,13 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.apptronix.nitkonschedule.R;
+import com.apptronix.nitkonschedule.model.SingleMarkedStudent;
 import com.apptronix.nitkonschedule.teacher.ui.ClickListener;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
+
+import javax.annotation.Nullable;
 
 import timber.log.Timber;
 
@@ -24,6 +28,7 @@ public class MarkAttendanceAdapter extends RecyclerView.Adapter<MarkAttendanceAd
     Context context;
     String[] data;
     Boolean def;
+    List<SingleMarkedStudent> markedStudents;
     public final ClickListener listener;
     private static LayoutInflater inflater = null;
 
@@ -35,6 +40,15 @@ public class MarkAttendanceAdapter extends RecyclerView.Adapter<MarkAttendanceAd
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
+    public MarkAttendanceAdapter(Context context, List<SingleMarkedStudent> markedStudentList, ClickListener listener) {
+        this.listener = listener;
+        this.context = context;
+        this.markedStudents = markedStudentList;
+        inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
 
     @Override
     public int getItemCount() {
@@ -50,8 +64,13 @@ public class MarkAttendanceAdapter extends RecyclerView.Adapter<MarkAttendanceAd
 
     @Override
     public void onBindViewHolder(ViewHolder vh, int position) {
-        vh.checkBox.setChecked(def);
-        vh.textView.setText(data[position]);
+        if(markedStudents==null){
+            vh.checkBox.setChecked(def);
+            vh.textView.setText(data[position]);
+        } else {
+            vh.textView.setText(markedStudents.get(position).getCollId());
+            vh.checkBox.setChecked(markedStudents.get(position).getPresent());
+        }
     }
 
 

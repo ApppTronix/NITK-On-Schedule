@@ -16,6 +16,7 @@ import com.apptronix.nitkonschedule.model.UploadResponse;
 import org.json.JSONObject;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -35,6 +36,13 @@ public interface ApiInterface {
     @POST("uploadFile/{filename}")
     Call<JSONObject > uploadFile(@Header("Authorization") String authorization,
                                  @Part MultipartBody.Part file, @Path("filename") String filename, @Path("course") String course);
+
+
+    @Multipart
+    @POST("uploadFaceImages")
+    Call<UploadResponse > uploadFaceImages(@Header("Authorization") String authorization,
+                                       @Body RequestBody files, @Body String[] filenames);
+
 
     @GET("schedule")
     Call<ScheduleList> getSchedule(@Header("Authorization") String authorization);

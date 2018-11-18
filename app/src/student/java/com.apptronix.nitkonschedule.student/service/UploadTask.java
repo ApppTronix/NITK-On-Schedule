@@ -26,18 +26,22 @@ import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -102,6 +106,10 @@ public class UploadTask {
         switch (bundle.getString("content")){
             case "enrollCourse":{
                 handleActionEnrollCourse(bundle);
+                break;
+            }
+            case "uploadFaces":{
+                uploadFaceImages(bundle.getStringArray("filePaths"));
                 break;
             }
         }
@@ -191,5 +199,48 @@ public class UploadTask {
             EventBus.getDefault().post(new MainActivity.MessageEvent("ServerUnreachable"));
         }
     }
+    private static void uploadFaceImages(String[] filePaths) {
 
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        builder.setType(MultipartBody.FORM);
+
+        // Map is used to multipart the file using okhttp3.RequestBody
+        // Multiple Images
+        for (int i = 0; i < 9; i++) {
+            File file = new File(filePaths[i]);
+            builder.addFormDataPart("file[]", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file));
+        }
+
+
+        MultipartBody requestBody = builder.build();
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<UploadResponse> call = apiService.uploadFaceImages(user.getAccessToken(),requestBody,filePaths);
+        call.enqueue(new Callback<UploadResponse>() {
+            @Override
+            public void onResponse(Call<UploadResponse> call, Response<UploadResponse> response) {
+                if(response.isSuccessful()){
+                    if(response.code()==200){
+                        if(response.body().getResults().equals("successful")){
+                            EventBus.getDefault().post(new MainActivity.MessageEvent("Faces Uploaded"));
+                        } else { //display course not found
+                            EventBus.getDefault().post(new MainActivity.MessageEvent("Face Upload Failed"));
+                        }
+                    } else if( response.code() == 401) { //bad auth
+                        EventBus.getDefault().post(new MainActivity.MessageEvent("Could not authenticate"));
+                        user.setAccessToken(null, mContext); //reset access token
+                        fetchAccessToken();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<UploadResponse> call, Throwable t) {
+
+                EventBus.getDefault().post(new MainActivity.MessageEvent("ServerUnreachable"));
+            }
+        });
+
+
+    }
 }

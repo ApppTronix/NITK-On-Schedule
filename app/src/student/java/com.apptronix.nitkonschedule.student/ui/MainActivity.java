@@ -5,12 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.core.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -24,11 +21,9 @@ import android.widget.Toast;
 import com.apptronix.nitkonschedule.R;
 import com.apptronix.nitkonschedule.model.User;
 import com.apptronix.nitkonschedule.student.service.DbSyncService;
-import com.firebase.jobdispatcher.FirebaseJobDispatcher;
-import com.firebase.jobdispatcher.GooglePlayDriver;
-import com.firebase.jobdispatcher.Job;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -36,6 +31,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity
@@ -160,13 +157,8 @@ public class MainActivity extends AppCompatActivity
 
     public void syncDB(){
 
-        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
-        Job myJob = dispatcher.newJobBuilder()
-                .setService(DbSyncService.class) // the JobService that will be called
-                .setTag("my-unique-tag")        // uniquely identifies the job
-                .build();
-
-        dispatcher.mustSchedule(myJob);
+        Intent intent = new Intent(this,DbSyncService.class);
+        startService(intent);
     }
 
 

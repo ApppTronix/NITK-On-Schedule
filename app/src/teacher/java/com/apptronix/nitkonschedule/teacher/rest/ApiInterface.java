@@ -33,8 +33,14 @@ import retrofit2.http.Path;
 public interface ApiInterface {
 
     @Multipart
-    @POST("uploadFile/{filename}/{course}")
+    @POST("uploadFile/{course}/{filename}")
     Call<JSONObject > uploadFile(@Header("Authorization") String authorization,
+                                 @Part MultipartBody.Part file,@Path("filename") String filename,@Path("course") String course );
+
+
+    @Multipart
+    @POST("uploadAttendanceImage/{course}/{filename}")
+    Call<JSONObject > uploadAttendanceImage(@Header("Authorization") String authorization,
                                  @Part MultipartBody.Part file,@Path("filename") String filename,@Path("course") String course );
 
     // Schedule
@@ -54,6 +60,7 @@ public interface ApiInterface {
 
     @POST("uploadAttendance")
     Call<UploadResponse> uploadAttendance(@Header("Authorization") String authorization, @Body Schedule schedule);
+
     // get
 
     @GET("assignments")
