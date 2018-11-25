@@ -20,6 +20,9 @@ import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.apptronix.nitkonschedule.teacher.service.InstantUploadService
 import com.apptronix.nitkonschedule.teacher.ui.EditUploadTAActivity
 import kotlinx.android.synthetic.teacher.fragment_tests.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
 
 class TestsFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
@@ -122,4 +125,32 @@ class TestsFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(token: String)
     }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        EventBus.getDefault().unregister(this)
+        super.onStop()
+    }
+
+
+    class MessageEvent(var message: String)
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+
+    fun onMessageEvent(event: MessageEvent) {
+
+        Timber.i(event.message)
+        when (event.message) {
+            "reload" -> {
+
+                loaderManager.restartLoader(1, null, this@TestsFragment)
+
+            }
+        }
+    }
+
 }// Required empty public constructor

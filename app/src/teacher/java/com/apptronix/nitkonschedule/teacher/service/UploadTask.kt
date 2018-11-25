@@ -106,9 +106,7 @@ object UploadTask {
                     cursor.getInt(cursor.getColumnIndex(DBContract.TimeTableEntry.COLUMN_TIME)),
                     cursor.getString(cursor.getColumnIndex(DBContract.TimeTableEntry.COLUMN_DESCRIPTION)),
                     cursor.getString(cursor.getColumnIndex(DBContract.TimeTableEntry.COLUMN_PRESENT_IDS))
-
             )
-
             val apiService = ApiClient.getClient().create(ApiInterface::class.java)
             val callTT = apiService.deleteSchedule(user!!.accessToken, schedule)
 
@@ -418,7 +416,7 @@ object UploadTask {
     }
 
     private fun uploadAssignment(bundle: Bundle) {
-        Timber.i("assignment")
+        Timber.i("upload assignment")
 
         val assignment = bundle.getSerializable("parcel") as Assignment
 

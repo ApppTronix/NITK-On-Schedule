@@ -81,14 +81,6 @@ class EditUploadTAActivity : AppCompatActivity() {
         })
 
         when (titleText) {
-            "Delete Assignment" -> {
-                load(this.contentResolver.query(DBContract.AssignmentsEntry.buildAssignmentUri(id), null, null, null, null))
-                deleteAssignment()
-            }
-            "Delete Test" -> {
-                load(this.contentResolver.query(DBContract.TestsEntry.buildTestUri(id), null, null, null, null))
-                deleteTest()
-            }
 
             "Edit Assignment" -> {
 
@@ -116,19 +108,6 @@ class EditUploadTAActivity : AppCompatActivity() {
 
     }
 
-    private fun deleteTest() {
-
-
-        val bundle = Bundle()
-        bundle.putSerializable("parcel", makeTest())
-        bundle.putString("content", titleText)
-
-        val intent = Intent(this, InstantUploadService::class.java)
-        intent.putExtra("bundle",bundle)
-        startService(intent)
-
-        finish()
-    }
 
     private fun makeTest(): Test {
         val titleTextInput = input_title.getText().toString()
@@ -154,20 +133,6 @@ class EditUploadTAActivity : AppCompatActivity() {
         }
 
         return Assignment(titleTextInput, descText, courseText, dateInt!!, Integer.parseInt(weightageText), Integer.parseInt(maxScoreText))
-    }
-
-    private fun deleteAssignment() {
-
-        this.contentResolver.delete(DBContract.AssignmentsEntry.buildAssignmentUri(id), null, null)
-
-        Timber.i("delete assignment")
-        val bundle = Bundle()
-        bundle.putSerializable("parcel", makeAssignment())
-        bundle.putString("content", titleText)
-        val intent = Intent(this,InstantUploadService::class.java)
-        intent.putExtra("bundle",bundle)
-        startService(intent)
-        finish()
     }
 
     fun showDatePickerDialog(v: View) {
@@ -243,6 +208,7 @@ class EditUploadTAActivity : AppCompatActivity() {
 
     fun upload(v: View) {
 
+        Timber.i("upload called")
         val titleTextInput = input_title.getText().toString()
         val descText = input_description.text.toString()
         val courseText = input_course.text.toString()
@@ -261,9 +227,9 @@ class EditUploadTAActivity : AppCompatActivity() {
         if (isValidInput(details)) {
             val bundle = Bundle()
             if (titleTextInput.contains("Test")) {
-                bundle.putSerializable("parcel", Test(titleTextInput, descText, courseText, Integer.parseInt(dateText), Integer.parseInt(weightageText), Integer.parseInt(timeText)))
+                bundle.putSerializable("parcel", Test(titleTextInput, descText, courseText, dateInt!!, Integer.parseInt(weightageText), timeInt!!))
             } else {
-                bundle.putSerializable("parcel", Assignment(titleTextInput, descText, courseText, Integer.parseInt(dateText), Integer.parseInt(weightageText),Integer.parseInt(maxScoreText)))
+                bundle.putSerializable("parcel", Assignment(titleTextInput, descText, courseText, dateInt!!, Integer.parseInt(weightageText),timeInt!!))
             }
 
             bundle.putStringArray("details", details)
@@ -273,7 +239,6 @@ class EditUploadTAActivity : AppCompatActivity() {
             startService(intent)
             finish()
 
-            finish()
         }
 
     }

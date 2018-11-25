@@ -114,6 +114,8 @@ class InstantUploadService : IntentService("InstantUploadService"), ProgressRequ
                         .setSmallIcon(R.drawable.ic_folder)
                 mNotifyManager.notify(id,mBuilder.build())
 
+                
+
                 val apiService = ApiClient.getClient().create(ApiInterface::class.java)
                 val user = User(this);
                 val callTT = apiService.uploadAttendanceImage(user.accessToken, filePart,file.name,course)
@@ -134,6 +136,7 @@ class InstantUploadService : IntentService("InstantUploadService"), ProgressRequ
 
                         }
                     }
+
 
                 } catch (e: IOException) {
                     e.printStackTrace()
