@@ -292,7 +292,7 @@ public class DBProvider extends ContentProvider {
         sStudentQueryBuilder.setTables(TestsEntry.TABLE_NAME);
         return sStudentQueryBuilder.query(db,
                 null,
-                TimeTableEntry.TABLE_NAME +"."+ TimeTableEntry._ID + " = ? ",
+                TestsEntry.TABLE_NAME +"."+ TestsEntry._ID + " = ? ",
                 new String[]{id},
                 null,
                 null,

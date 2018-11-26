@@ -40,7 +40,7 @@ class MyFcmListenerService : FirebaseMessagingService() {
         val title=data.get("title")
 
         try {
-            if (title!!.contains("New")) {
+            if (title!!.toLowerCase().contains("new")) {
                 if (title!!.contains("Schedule")) {
 
                     val dayTable = JSONObject(data.getValue("content"))
@@ -109,9 +109,9 @@ class MyFcmListenerService : FirebaseMessagingService() {
                     val test = JSONObject(data.getValue("content"))
                     val testCV = ContentValues()
 
-                    val date =  test.getString("submissionDate")
+                    val date =  test.getString("testDate")
                     val course =  test.getString("course")
-                    val time = test.getString("time")
+                    val time = test.getString("testTime")
                     val title = test.getString("title")
 
                     mBuilder.setContentTitle("New Test")
@@ -166,10 +166,8 @@ class MyFcmListenerService : FirebaseMessagingService() {
                     val test = JSONObject(data.getValue("content"))
                     val testCV = ContentValues()
 
-                    val date =  test.getString("submissionDate")
+                    val date =  test.getString("testDate")
                     val course =  test.getString("course")
-                    val time = test.getString("time")
-                    val title = test.getString("title")
 
 
                     mBuilder.setContentTitle("Test Deleted")

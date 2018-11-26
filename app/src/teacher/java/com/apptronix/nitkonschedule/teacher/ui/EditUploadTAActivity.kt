@@ -226,7 +226,8 @@ class EditUploadTAActivity : AppCompatActivity() {
 
         if (isValidInput(details)) {
             val bundle = Bundle()
-            if (titleTextInput.contains("Test")) {
+            if (title.contains("Test")) {
+                Timber.i("Putting test in bundle")
                 bundle.putSerializable("parcel", Test(titleTextInput, descText, courseText, dateInt!!, Integer.parseInt(weightageText), timeInt!!))
             } else {
                 bundle.putSerializable("parcel", Assignment(titleTextInput, descText, courseText, dateInt!!, Integer.parseInt(weightageText),timeInt!!))

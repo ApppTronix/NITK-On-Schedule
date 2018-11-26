@@ -71,4 +71,12 @@ public class Test implements Serializable {
     public void setTestDate(int testDate) {
         this.testDate = testDate;
     }
+
+    public int getTestTime() {
+        return testTime;
+    }
+
+    public void setTestTime(int testTime) {
+        this.testTime = testTime;
+    }
 }
