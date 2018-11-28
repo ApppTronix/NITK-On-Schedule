@@ -2,9 +2,9 @@ package com.apptronix.nitkonschedule.teacher.service;
 
 import android.util.Log;
 
-import com.apptronix.nitkonschedule.model.FcmUpdate;
-import com.apptronix.nitkonschedule.model.UploadResponse;
-import com.apptronix.nitkonschedule.model.User;
+import com.apptronix.nitkonschedule.student.model.FcmUpdate;
+import com.apptronix.nitkonschedule.student.model.UploadResponse;
+import com.apptronix.nitkonschedule.student.model.User;
 import com.apptronix.nitkonschedule.rest.ApiClient;
 import com.apptronix.nitkonschedule.teacher.rest.ApiInterface;
 import com.google.firebase.iid.FirebaseInstanceId;

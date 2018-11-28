@@ -6,7 +6,7 @@ import android.content.ComponentName
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import com.apptronix.nitkonschedule.model.*
+import com.apptronix.nitkonschedule.teacher.model.*
 import com.apptronix.nitkonschedule.rest.ApiClient
 import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.apptronix.nitkonschedule.teacher.rest.ApiInterface

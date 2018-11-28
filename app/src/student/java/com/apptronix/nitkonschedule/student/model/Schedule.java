@@ -1,4 +1,4 @@
-package com.apptronix.nitkonschedule.model;
+package com.apptronix.nitkonschedule.student.model;
 
 /**
  * Created by DevOpsTrends on 6/10/2017.

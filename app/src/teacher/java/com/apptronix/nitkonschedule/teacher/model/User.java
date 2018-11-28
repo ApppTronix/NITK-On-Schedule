@@ -1,11 +1,12 @@
-package com.apptronix.nitkonschedule.model;
+package com.apptronix.nitkonschedule.teacher.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import androidx.annotation.Nullable;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by DevOpsTrends on 6/10/2017.

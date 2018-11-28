@@ -1,14 +1,15 @@
-package com.apptronix.nitkonschedule.teacher.service
+package com.apptronix.nitkonschedule.student.service
 
 import android.app.NotificationManager
 import android.content.ContentValues
 import androidx.core.app.NotificationCompat
 import com.apptronix.nitkonschedule.R
 import com.apptronix.nitkonschedule.Utils
-import com.apptronix.nitkonschedule.teacher.data.DBContract
-import com.apptronix.nitkonschedule.teacher.ui.fragments.AssignmentsFragment
-import com.apptronix.nitkonschedule.teacher.ui.fragments.ScheduleFragment
-import com.apptronix.nitkonschedule.teacher.ui.fragments.TestsFragment
+import com.apptronix.nitkonschedule.student.data.DBContract
+import com.apptronix.nitkonschedule.student.model.Test
+import com.apptronix.nitkonschedule.student.ui.fragments.AssignmentsFragment
+import com.apptronix.nitkonschedule.student.ui.fragments.ScheduleFragment
+import com.apptronix.nitkonschedule.student.ui.fragments.TestsFragment
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.greenrobot.eventbus.EventBus
@@ -95,38 +96,39 @@ class MyFcmListenerService : FirebaseMessagingService() {
 
                     assgnCV.put(DBContract.AssignmentsEntry.COLUMN_SUBMISSION_DATE,date)
                     assgnCV.put(DBContract.AssignmentsEntry.COLUMN_COURSE_CODE,course)
-                    assgnCV.put(DBContract.AssignmentsEntry.COLUMN_TIME, time)
                     assgnCV.put(DBContract.AssignmentsEntry.COLUMN_TITLE, title)
                     assgnCV.put(DBContract.AssignmentsEntry.COLUMN_DESCRIPTION, assgn.getString("description"))
-                    assgnCV.put(DBContract.TestsEntry.COLUMN_WEIGHTAGE, assgn.getDouble("weightage"))
-                    assgnCV.put(DBContract.TestsEntry.COLUMN_MAX_SCORE, assgn.getDouble("maxScore"))
+                    assgnCV.put(DBContract.AssignmentsEntry.COLUMN_WEIGHTAGE, assgn.getString("weightage"))
                     cVVector.add(assgnCV)
                     val cvArray = cVVector.toTypedArray()
                     val inserts = this.contentResolver.bulkInsert(DBContract.TimeTableEntry.CONTENT_URI, cvArray)
                     Timber.i("%d assgn bulk insert success", inserts)
                 }else if (title!!.contains("Test")) {
 
-                    val test = JSONObject(data.getValue("content"))
+                    val test = JSONObject(data.getValue("content")) as Test
                     val testCV = ContentValues()
 
-                    val date =  test.getString("testDate")
-                    val course =  test.getString("course")
-                    val time = test.getString("testTime")
-                    val title = test.getString("title")
+                    val date =  test.testDate
+                    val course =  test.course
+                    val time = test.testTime
+                    val title = test.title
+
+
+
 
                     mBuilder.setContentTitle("New Test")
                             .setContentText("You have a "+ course + " test scheduled for " + date + " at " + time)
 
                     testCV.put(DBContract.TestsEntry.COLUMN_TEST_DATE,date)
                     testCV.put(DBContract.TestsEntry.COLUMN_COURSE_CODE,course)
-                    testCV.put(DBContract.TestsEntry.COLUMN_TIME, time)
+                    testCV.put(DBContract.TestsEntry.COLUMN_TEST_TIME, time)
                     testCV.put(DBContract.TestsEntry.COLUMN_TITLE, title)
-                    testCV.put(DBContract.TestsEntry.COLUMN_SYLLABUS, test.getString("portions"))
-                    testCV.put(DBContract.TestsEntry.COLUMN_WEIGHTAGE, test.getDouble("weightage"))
-                    testCV.put(DBContract.TestsEntry.COLUMN_MAX_SCORE, test.getDouble("maxScore"))
+                    testCV.put(DBContract.TestsEntry.COLUMN_SYLLABUS, test.portions)
+                    testCV.put(DBContract.TestsEntry.COLUMN_WEIGHTAGE, test.weightage)
+                    testCV.put(DBContract.TestsEntry.COLUMN_MAX_SCORE, test.maxScore)
                     cVVector.add(testCV)
                     val cvArray = cVVector.toTypedArray()
-                    val inserts = this.contentResolver.bulkInsert(DBContract.TimeTableEntry.CONTENT_URI, cvArray)
+                    val inserts = this.contentResolver.bulkInsert(DBContract.TestsEntry.CONTENT_URI, cvArray)
                     Timber.i("%d test bulk insert success", inserts)
                 } else if (title.contains("newResource")) {
 
@@ -168,6 +170,7 @@ class MyFcmListenerService : FirebaseMessagingService() {
 
                     val date =  test.getString("testDate")
                     val course =  test.getString("course")
+
 
 
                     mBuilder.setContentTitle("Test Deleted")

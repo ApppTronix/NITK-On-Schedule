@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.apptronix.nitkonschedule.R
-import com.apptronix.nitkonschedule.model.Course
+import com.apptronix.nitkonschedule.teacher.model.Course
 import com.apptronix.nitkonschedule.teacher.service.InstantUploadService
 import kotlinx.android.synthetic.teacher.activity_new_course.*
 import timber.log.Timber

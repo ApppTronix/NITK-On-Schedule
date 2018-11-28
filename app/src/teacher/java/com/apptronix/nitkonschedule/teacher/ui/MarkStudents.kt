@@ -1,8 +1,6 @@
 package com.apptronix.nitkonschedule.teacher.ui
 
 import android.app.Activity
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
@@ -18,14 +16,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.widget.CheckBox
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.apptronix.nitkonschedule.FileUtils
 import com.apptronix.nitkonschedule.R
-import com.apptronix.nitkonschedule.model.Schedule
-import com.apptronix.nitkonschedule.model.User
+import com.apptronix.nitkonschedule.teacher.model.Schedule
+import com.apptronix.nitkonschedule.teacher.model.User
 import com.apptronix.nitkonschedule.teacher.adapter.MarkAttendanceAdapter
 import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.apptronix.nitkonschedule.teacher.service.InstantUploadService

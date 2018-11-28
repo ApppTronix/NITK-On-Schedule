@@ -7,7 +7,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import com.apptronix.nitkonschedule.R
-import com.apptronix.nitkonschedule.model.User
+import com.apptronix.nitkonschedule.teacher.model.User
 import com.apptronix.nitkonschedule.rest.ApiClient
 import com.apptronix.nitkonschedule.rest.ProgressRequestBody
 import com.apptronix.nitkonschedule.teacher.data.DBContract

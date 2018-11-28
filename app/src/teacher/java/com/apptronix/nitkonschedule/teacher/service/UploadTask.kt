@@ -3,7 +3,7 @@ package com.apptronix.nitkonschedule.teacher.service
 import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
-import com.apptronix.nitkonschedule.model.*
+import com.apptronix.nitkonschedule.teacher.model.*
 import com.apptronix.nitkonschedule.rest.ApiClient
 import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.apptronix.nitkonschedule.teacher.rest.ApiInterface

@@ -15,7 +15,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.apptronix.nitkonschedule.R
 import com.apptronix.nitkonschedule.Utils
-import com.apptronix.nitkonschedule.model.Schedule
+import com.apptronix.nitkonschedule.teacher.model.Schedule
 import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.apptronix.nitkonschedule.teacher.service.InstantUploadService
 import kotlinx.android.synthetic.teacher.activity_edit_upload_schedule.*
@@ -46,11 +46,6 @@ class EditUploadSchedule : AppCompatActivity() {
             "Edit Schedule" -> {
                 editScheduleLoad(this.contentResolver.query(DBContract.TimeTableEntry.buildScheduleUri(id),
                         null, null, null, null))
-            }
-            "Delete Schedule" -> {
-                editScheduleLoad(this.contentResolver.query(DBContract.TimeTableEntry.buildScheduleUri(id),
-                        null, null, null, null))
-                deleteSchedule()
             }
         }
 
@@ -84,19 +79,6 @@ class EditUploadSchedule : AppCompatActivity() {
 
     }
 
-    private fun deleteSchedule() {
-
-        this.contentResolver.delete(DBContract.TimeTableEntry.buildScheduleUri(id), null, null)
-        Timber.i("delete Schedule")
-        val bundle = Bundle()
-        bundle.putSerializable("parcel", makeSchedule())
-        bundle.putString("content", titleText)
-        val intent = Intent(this,InstantUploadService::class.java)
-        intent.putExtra("bundle",bundle)
-        startService(intent)
-        finish()
-
-    }
 
     private fun makeSchedule(): Schedule {
         val descText = s_input_description.text.toString()
@@ -192,6 +174,8 @@ class EditUploadSchedule : AppCompatActivity() {
             val intent = Intent(this,InstantUploadService::class.java)
             intent.putExtra("bundle",bundle)
             startService(intent)
+
+            finish()
 
         } else {
             Timber.i("detail invalid %s %s %s",timeText,courseText,dateText)

@@ -11,7 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.apptronix.nitkonschedule.R
-import com.apptronix.nitkonschedule.model.User
+import com.apptronix.nitkonschedule.teacher.model.User
 import com.apptronix.nitkonschedule.teacher.service.AuthService
 import com.apptronix.nitkonschedule.teacher.service.AuthService.ACTION_GMAIL_LOGIN
 import com.google.android.gms.auth.api.Auth

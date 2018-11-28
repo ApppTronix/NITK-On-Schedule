@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apptronix.nitkonschedule.R
 import com.apptronix.nitkonschedule.Utils
-import com.apptronix.nitkonschedule.model.Schedule
+import com.apptronix.nitkonschedule.teacher.model.Schedule
 import com.apptronix.nitkonschedule.teacher.adapter.ViewMarkedAdapter
 import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.google.android.material.floatingactionbutton.FloatingActionButton

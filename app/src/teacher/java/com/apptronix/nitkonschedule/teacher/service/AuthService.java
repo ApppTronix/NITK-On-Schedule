@@ -3,7 +3,7 @@ package com.apptronix.nitkonschedule.teacher.service;
 import android.app.IntentService;
 import android.content.Intent;
 
-import com.apptronix.nitkonschedule.model.User;
+import com.apptronix.nitkonschedule.student.model.User;
 import com.apptronix.nitkonschedule.rest.ApiClient;
 import com.apptronix.nitkonschedule.teacher.ui.LoginActivity;
 import com.apptronix.nitkonschedule.teacher.ui.MainActivity;

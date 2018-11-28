@@ -16,7 +16,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.apptronix.nitkonschedule.R
-import com.apptronix.nitkonschedule.model.User
+import com.apptronix.nitkonschedule.teacher.model.User
 import com.apptronix.nitkonschedule.teacher.service.DbSyncService
 import com.apptronix.nitkonschedule.teacher.ui.fragments.*
 import com.google.android.gms.common.ConnectionResult

@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.apptronix.nitkonschedule.R;
-import com.apptronix.nitkonschedule.model.SingleMarkedStudent;
+import com.apptronix.nitkonschedule.student.model.SingleMarkedStudent;
 import com.apptronix.nitkonschedule.teacher.ui.ClickListener;
 
 import java.lang.ref.WeakReference;

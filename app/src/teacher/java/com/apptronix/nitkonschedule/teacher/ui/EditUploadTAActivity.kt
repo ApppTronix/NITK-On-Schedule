@@ -16,8 +16,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.apptronix.nitkonschedule.R
 import com.apptronix.nitkonschedule.Utils
-import com.apptronix.nitkonschedule.model.Assignment
-import com.apptronix.nitkonschedule.model.Test
+import com.apptronix.nitkonschedule.teacher.model.Assignment
+import com.apptronix.nitkonschedule.teacher.model.Test
 import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.apptronix.nitkonschedule.teacher.service.InstantUploadService
 import kotlinx.android.synthetic.teacher.activity_edit_upload_at.*

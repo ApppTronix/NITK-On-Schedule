@@ -1,18 +1,18 @@
 package com.apptronix.nitkonschedule.teacher.rest;
 
 
-import com.apptronix.nitkonschedule.model.Assignment;
-import com.apptronix.nitkonschedule.model.AssignmentResponse;
-import com.apptronix.nitkonschedule.model.Course;
-import com.apptronix.nitkonschedule.model.CourseResponse;
-import com.apptronix.nitkonschedule.model.FcmUpdate;
-import com.apptronix.nitkonschedule.model.Login;
-import com.apptronix.nitkonschedule.model.ResourcesResponse;
-import com.apptronix.nitkonschedule.model.Schedule;
-import com.apptronix.nitkonschedule.model.ScheduleList;
-import com.apptronix.nitkonschedule.model.Test;
-import com.apptronix.nitkonschedule.model.TestsResponse;
-import com.apptronix.nitkonschedule.model.UploadResponse;
+import com.apptronix.nitkonschedule.student.model.Assignment;
+import com.apptronix.nitkonschedule.student.model.AssignmentResponse;
+import com.apptronix.nitkonschedule.student.model.Course;
+import com.apptronix.nitkonschedule.student.model.CourseResponse;
+import com.apptronix.nitkonschedule.student.model.FcmUpdate;
+import com.apptronix.nitkonschedule.student.model.Login;
+import com.apptronix.nitkonschedule.student.model.ResourcesResponse;
+import com.apptronix.nitkonschedule.student.model.Schedule;
+import com.apptronix.nitkonschedule.student.model.ScheduleList;
+import com.apptronix.nitkonschedule.student.model.Test;
+import com.apptronix.nitkonschedule.student.model.TestsResponse;
+import com.apptronix.nitkonschedule.student.model.UploadResponse;
 
 import org.json.JSONObject;
 

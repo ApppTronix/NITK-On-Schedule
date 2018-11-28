@@ -1,4 +1,4 @@
-package com.apptronix.nitkonschedule.model;
+package com.apptronix.nitkonschedule.student.model;
 
 import com.google.gson.annotations.SerializedName;
 
