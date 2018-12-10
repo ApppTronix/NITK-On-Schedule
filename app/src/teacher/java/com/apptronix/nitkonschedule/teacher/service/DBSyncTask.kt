@@ -6,6 +6,11 @@ import android.content.ComponentName
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import com.apptronix.nitkonschedule.model.Assignment
+import com.apptronix.nitkonschedule.model.Course
+import com.apptronix.nitkonschedule.model.ResourceModel
+import com.apptronix.nitkonschedule.model.Schedule
+import com.apptronix.nitkonschedule.model.Test
 import com.apptronix.nitkonschedule.teacher.model.*
 import com.apptronix.nitkonschedule.rest.ApiClient
 import com.apptronix.nitkonschedule.teacher.data.DBContract
@@ -242,7 +247,7 @@ object DBSyncTask {
 
     }
 
-    private fun insertTestsList(testsList: List<Test>?) {
+    private fun insertTestsList(testsList: MutableList<Test>) {
 
         val cVVector = Vector<ContentValues>(testsList!!.size)
 
@@ -265,7 +270,7 @@ object DBSyncTask {
     }
 
 
-    private fun insertAssignmentsList(assgnList: List<Assignment>?) {
+    private fun insertAssignmentsList(assgnList: MutableList<Assignment>) {
 
         val cVVector = Vector<ContentValues>(assgnList!!.size)
 
@@ -287,7 +292,7 @@ object DBSyncTask {
 
     }
 
-    private fun insertCourseList(courseList: List<Course>?) {
+    private fun insertCourseList(courseList: MutableList<Course>) {
 
         val cVVector = Vector<ContentValues>(courseList!!.size)
 
@@ -313,7 +318,7 @@ object DBSyncTask {
         }
     }
 
-    private fun insertTimeTableList(timeTableList: List<Schedule>?) {
+    private fun insertTimeTableList(timeTableList: MutableList<Schedule>) {
 
         val cVVector = Vector<ContentValues>(timeTableList!!.size)
 
@@ -339,7 +344,7 @@ object DBSyncTask {
         }
     }
 
-    private fun insertResourcesList(resourceList: List<ResourceModel>?) {
+    private fun insertResourcesList(resourceList: MutableList<ResourceModel>) {
 
         val cVVector = Vector<ContentValues>(resourceList!!.size)
 

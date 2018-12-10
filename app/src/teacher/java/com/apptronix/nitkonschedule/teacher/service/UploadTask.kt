@@ -3,7 +3,7 @@ package com.apptronix.nitkonschedule.teacher.service
 import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
-import com.apptronix.nitkonschedule.teacher.model.*
+import com.apptronix.nitkonschedule.model.*
 import com.apptronix.nitkonschedule.rest.ApiClient
 import com.apptronix.nitkonschedule.teacher.data.DBContract
 import com.apptronix.nitkonschedule.teacher.rest.ApiInterface
@@ -20,6 +20,8 @@ import timber.log.Timber
 import java.io.IOException
 import java.net.URL
 import java.util.concurrent.TimeUnit
+
+
 
 /**
  * Created by DevOpsTrends on 7/5/2017.
@@ -272,7 +274,8 @@ object UploadTask {
                     cursor.getString(cursor.getColumnIndex(DBContract.AssignmentsEntry.COLUMN_COURSE_CODE)),
                     cursor.getInt(cursor.getColumnIndex(DBContract.AssignmentsEntry.COLUMN_SUBMISSION_DATE)),
                     cursor.getInt(cursor.getColumnIndex(DBContract.AssignmentsEntry.COLUMN_WEIGHTAGE)),
-                    cursor.getInt(cursor.getColumnIndex(DBContract.AssignmentsEntry.COLUMN_MAX_SCORE))
+                    cursor.getInt(cursor.getColumnIndex(DBContract.AssignmentsEntry.COLUMN_MAX_SCORE)),
+                    cursor.getInt(cursor.getColumnIndex(DBContract.AssignmentsEntry.COLUMN_SCORES))
             )
 
             val apiService = ApiClient.getClient().create(ApiInterface::class.java)
@@ -416,7 +419,7 @@ object UploadTask {
     }
 
     private fun uploadAssignment(bundle: Bundle) {
-        Timber.i("upload assignment")
+        Timber.i("assignment")
 
         val assignment = bundle.getSerializable("parcel") as Assignment
 
