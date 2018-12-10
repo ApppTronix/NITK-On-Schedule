@@ -10,14 +10,11 @@ import com.apptronix.nitkonschedule.student.rest.ApiInterface;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import org.json.JSONException;
-
 import java.io.IOException;
 
 import okhttp3.MediaType;
 import retrofit2.Call;
 import retrofit2.Response;
-import timber.log.Timber;
 
 /**
  * Created by DevOpsTrends on 6/21/2017.
@@ -36,14 +33,8 @@ public class MyInstanceIdListenerService extends FirebaseInstanceIdService{
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d("FCM", "Refreshed token: " + refreshedToken);
         // TODO: Implement this method to send any registration to your app's servers.
-        try {
-            user.setFcmID(refreshedToken,this);
-            sendRegistrationToServer(refreshedToken);
-
-        } catch (JSONException | IOException e) {
-            e.printStackTrace();
-            Timber.i(e.getMessage());
-        }
+        user.setFcmID(refreshedToken,this);
+        sendRegistrationToServer(refreshedToken);
     }
 
     private void sendRegistrationToServer(String refreshedToken) {
