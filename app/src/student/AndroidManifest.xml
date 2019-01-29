@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application>
+
+
+        <provider
+            android:name="com.apptronix.nitkonschedule.student.data.DBProvider"
+            android:authorities="com.apptronix.nitkonschedule.student"
+            android:enabled="true"
+            android:exported="false" />
+
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.apptronix.nitkonschedule.student.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
+        <receiver
+            android:name="com.apptronix.nitkonschedule.student.widget.TimeTableCollectionWidget"
+            android:label="WidgetTimeTable">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/collection_app_widget_info" />
+        </receiver>
+
+        <service
+            android:name="com.apptronix.nitkonschedule.student.widget.CollectionWidgetRemoteViewsService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity
+            android:name="com.apptronix.nitkonschedule.student.ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.apptronix.nitkonschedule.student.ui.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.apptronix.nitkonschedule.student.service.DbSyncService"
+            android:exported="false">
+        </service>
+        <service
+            android:name="com.apptronix.nitkonschedule.student.service.UploadService"
+            android:exported="false"></service>
+        <service
+            android:name="com.apptronix.nitkonschedule.student.service.AuthService"
+            android:exported="false" />
+        <service android:name="com.apptronix.nitkonschedule.student.service.MyFcmListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name="com.apptronix.nitkonschedule.student.ui.AttendanceDetailActivity" />
+        <activity android:name="com.apptronix.nitkonschedule.student.ui.AddFaceActivity"
+            android:parentActivityName="com.apptronix.nitkonschedule.student.ui.MainActivity"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="actions_array" >
+        <item>Edit</item>
+        <item>Grade</item>
+        <item>Delete</item>
+    </string-array>
+    <string-array name="schedule_actions_array" >
+        <item>Edit</item>
+        <item>Mark Attendance</item>
+        <item>Delete</item>
+    </string-array>
+    <string-array name="course_actions_array" >
+        <item>Resources</item>
+        <item>Tests</item>
+        <item>Assignments</item>
+    </string-array>
+
+</resources>

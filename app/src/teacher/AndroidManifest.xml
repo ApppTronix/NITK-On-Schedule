@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-sdk android:minSdkVersion="4" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.apptronix.nitkonschedule.teacher"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
+        <activity
+            android:name="com.apptronix.nitkonschedule.teacher.ui.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="com.apptronix.nitkonschedule.teacher.data.DBProvider"
+            android:authorities="com.apptronix.nitkonschedule.teacher.data.DBProvider"
+            android:exported="false" />
+
+        <receiver
+            android:name="com.apptronix.nitkonschedule.teacher.widget.TimeTableCollectionWidget"
+            android:label="WidgetTimeTable">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/collection_app_widget_info" />
+        </receiver>
+
+        <service
+            android:name="com.apptronix.nitkonschedule.teacher.widget.CollectionWidgetRemoteViewsService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity
+            android:name="com.apptronix.nitkonschedule.teacher.ui.EditUploadTAActivity"
+            android:parentActivityName="com.apptronix.nitkonschedule.teacher.ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.apptronix.nitkonschedule.teacher.ui.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.apptronix.nitkonschedule.teacher.ui.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name="com.apptronix.nitkonschedule.teacher.service.DbSyncService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
+        <service android:name="com.apptronix.nitkonschedule.teacher.service.DownloadService" />
+        <service android:name="com.apptronix.nitkonschedule.teacher.service.MyFcmListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.apptronix.nitkonschedule.teacher.service.AuthService"
+            android:exported="false" />
+
+        <activity
+            android:name="com.apptronix.nitkonschedule.teacher.ui.EditUploadSchedule"
+            android:parentActivityName="com.apptronix.nitkonschedule.teacher.ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.apptronix.nitkonschedule.teacher.ui.MainActivity" />
+        </activity>
+        <activity android:name="com.apptronix.nitkonschedule.teacher.ui.NewCourseActivity" />
+        <activity
+            android:name="com.apptronix.nitkonschedule.teacher.ui.ResourcesActivity"
+            android:parentActivityName="com.apptronix.nitkonschedule.teacher.ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.apptronix.nitkonschedule.teacher.ui.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.ipaulpro.afilechooser.FileChooserActivity"
+            android:enabled="@bool/use_activity"
+            android:exported="true"
+            android:icon="@drawable/ic_chooser"
+            android:label="@string/choose_file">
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+
+        <service android:name="com.apptronix.nitkonschedule.teacher.service.MyInstanceIdListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.apptronix.nitkonschedule.teacher.service.InstantUploadService"
+            android:exported="false" />
+
+        <activity
+            android:name="com.apptronix.nitkonschedule.teacher.ui.MarkStudents"
+            android:parentActivityName="com.apptronix.nitkonschedule.teacher.ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.apptronix.nitkonschedule.teacher.ui.MainActivity" />
+        </activity>
+        <activity android:name="com.apptronix.nitkonschedule.teacher.ui.ViewMarkedStudentActivity"
+            android:parentActivityName="com.apptronix.nitkonschedule.teacher.ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.apptronix.nitkonschedule.teacher.ui.MainActivity" /></activity>
+    </application>
+
+</manifest>
