@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">Teacher On Schedule</string>
     <string name="title_activity_upload">UploadActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
